@@ -65,6 +65,12 @@ public class Deadline implements Comparable<Deadline> {
         String stringStatus = "";
 
         try {
+
+            if (jsonFormat.equals("")) {
+                this.date = LocalDate.MIN;
+                this.status = DeadlineStatus.REMOVE;
+                return;
+            }
             this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
             stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -113,7 +119,7 @@ public class Deadline implements Comparable<Deadline> {
         if (status == DeadlineStatus.COMPLETE) {
             if (LocalDate.of(year, month, date).equals(LocalDate.MIN)) {
                 this.date = LocalDate.MIN;
-                this.status = DeadlineStatus.REMOVE;
+                this.status = DeadlineStatus.COMPLETE;
             } else {
                 this.date = LocalDate.of(year, month, date);
                 this.status = DeadlineStatus.COMPLETE;
@@ -184,7 +190,7 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE)
+        return (this.status != DeadlineStatus.REMOVE)
                 ? new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.status)
