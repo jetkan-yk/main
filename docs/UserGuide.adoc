@@ -297,7 +297,7 @@ effectively renamed within PDF++ and in your computer itself, thus resulting in 
 that matches the image shown below.
 
 .Rename Command Step 3
-image::EditFeatureFinalOutput.png[width="600"]
+image::EditFeatureFInalOutput.png[width="600"]
 
 [#command-tag]
 === Tagging a file : `tag`
